@@ -1,0 +1,92 @@
+// pages/index/index.js
+const app = getApp();
+const bsurl = require('../../utils/bsurl.js');
+const imgpath = require('../../utils/imgpath.js');
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    qrcodeText:''
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    
+    
+  },
+  qrcodeInput:function (e){
+      var that = this;
+      that.setData({
+        qrcodeText: e.detail.value
+      })
+  },
+  sendcode:function (){
+    var that = this;
+    wx.scanCode({
+      success: (res) => {
+        console.log(res);
+        that.setData({
+          qrcodeText:res.result
+        });
+      }
+    });
+  },
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+    setTimeout(function(){
+        wx.stopPullDownRefresh();
+    },1500)
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+    return {
+      title: 'YUE-时尚',
+      desc: '臻选您的美丽',
+      path: 'pages/index/index',
+      imageUrl: '',
+    }
+  }
+})
