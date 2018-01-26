@@ -1,4 +1,29 @@
 <!--pages/my/my.wxml-->
 <view class="container">
-	
+	<view class="header">
+        <image src="../../assets/images/bg.png" class="thumb"></image>
+        <text class="nickname strong">昵称</text>
+        <text class="about">13845888888</text>
+    </view>
+    <!-- 功能列表 -->
+    <view class="cell-box mt-10">
+        <view class="cell-manage">
+            <navigator url="../evaluateMy/evaluateMy" hover-class="navigator-hover">我的评价</navigator>
+        </view>
+    </view>
+    <view class="cell-box mt-10">
+        <view class="cell-manage">
+            <navigator url="../setupTel/setupTel" hover-class="navigator-hover">修改密码</navigator>
+        </view>
+    </view>
+    <view class="cell-box mt-10">
+        <view class="cell-manage">
+            <view>关于YUE时尚</view>
+        </view>
+    </view>
+    <view class="cell-box mt-10">
+        <view class="cell-manage">
+            <view>吹发师招募</view>
+        </view>
+    </view>
 </view>

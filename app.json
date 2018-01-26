@@ -2,7 +2,9 @@
   "pages": [
     "pages/index/index",
     "pages/orders/orders",
-    "pages/my/my"
+    "pages/my/my",
+    "pages/evaluateMy/evaluateMy",
+    "pages/setupTel/setupTel"
   ],
   "window": {
     "navigationBarTitleText": "YUE时尚-吹发师",

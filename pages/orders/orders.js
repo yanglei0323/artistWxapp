@@ -187,7 +187,7 @@ Page({
     var that = this;
     let index=e.target.dataset.index;
     that.setData({
-      showTimeBox:true,
+      showTimeBox:!that.data.showTimeBox,
       selectflag:index,
     });
   },

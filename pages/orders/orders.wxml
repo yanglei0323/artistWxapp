@@ -53,6 +53,17 @@
 			</picker-view>
 		</view>
     	<view class="orders-box">
-
+    		<view class="ordersdetail-header">
+    			<text>订单号：YJ1574256</text>
+    			<text>已完成</text>
+    			<image src="../../assets/icons/down-white.png" class="zk-icon"></image>
+    		</view>
+    		<view class="userinfo-box">
+    			<image src="../../assets/images/bg.png"></image>
+    			<text class="user-name">客户昵称</text>
+    			<text class="pay-time">支付时间：2018-01-26 19:46</text>
+    			<text class="store-text">悠唐店</text>
+    		</view>
+    		<view class="price">实际支付 ￥319.8</view>
     	</view>
 </view>

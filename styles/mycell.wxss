@@ -85,7 +85,7 @@
 }
 .navigator-hover{
   background:#fff;
-  color:#f6838d;
+  color:#7f8ffc;
 }
 .select-icon{
   position: absolute;
