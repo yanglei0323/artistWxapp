@@ -1,9 +1,9 @@
 <!--pages/my/my.wxml-->
 <view class="container">
 	<view class="header">
-        <image src="../../assets/images/bg.png" class="thumb"></image>
-        <text class="nickname strong">昵称</text>
-        <text class="about">13845888888</text>
+        <image src="{{userInfo.avatar}}" class="thumb"></image>
+        <text class="nickname strong">{{userInfo.name}}</text>
+        <text class="about">{{userInfo.telephone}}</text>
     </view>
     <!-- 功能列表 -->
     <view class="cell-box mt-10">

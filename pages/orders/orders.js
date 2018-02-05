@@ -16,7 +16,11 @@ Page({
     startime:'',
     endtime:'',
     hasEmptyGrid: false,
-    showPicker: false
+    showPicker: false,
+    ordersList: [],
+    page: 1,
+    hasMore:true,
+    zkid:0
   },
   /**
    * 生命周期函数--监听页面加载
@@ -33,6 +37,77 @@ Page({
       cur_year,
       cur_month,
       weeks_ch
+    });
+  },
+  getcommentlist: function (){
+    var that = this;
+    if(that.data.startime =='' || that.data.endtime == ''){
+        wx.showModal({
+          title: '温馨提示',
+          content: '请选择有效开始及结束时间',
+          showCancel:false,
+          confirmColor:'#7f8ffc',
+          success: function(res) {
+          }
+        })
+        return;
+    }
+    let startData = new Date(that.data.startime).getTime();
+    let endData = new Date(that.data.endtime).getTime();
+    let lefttime = endData - startData;
+    if(lefttime <= -1){
+      wx.showModal({
+        title: '温馨提示',
+        content: '截止时间不能小于开始时间！',
+        showCancel:false,
+        confirmColor:'#7f8ffc',
+        success: function(res) {
+        }
+      })
+      return;
+    }
+    that.setData({
+      ordersList:[],
+      page:1,
+      hasMore:true
+    });
+    wx.showLoading({
+      title: '加载中'
+    });
+    wx.request({//查询订单信息
+      url: bsurl + '/designer//orderlist.json',
+      method: 'POST',
+      header: {
+          'content-type': 'application/x-www-form-urlencoded',
+          'sessionid':app.globalData.sessionId
+      },
+      data:{
+        starttime:that.data.startime,
+        endtime:that.data.endtime,
+        page:that.data.page
+      },
+      success: function (res) {
+        let evaList = that.data.ordersList;
+        let orderlist = res.data.data.orderlist;
+        console.log(orderlist); 
+        if(orderlist.length > 0){
+          let page = that.data.page + 1;
+          for(let item of orderlist){
+            evaList.push(item);
+          }
+          that.setData({
+            ordersList:evaList,
+            page:page
+          });
+          wx.hideLoading();
+        }else{
+          wx.hideLoading();
+          that.setData({
+            hasMore:false
+          });
+        }
+        
+      }
     });
   },
   getThisMonthDays: function(year, month) {
@@ -139,7 +214,7 @@ Page({
       });
 
     }
-    console.log(that.data.startime);
+    // console.log(that.data.startime);
   },
   chooseYearAndMonth: function() {
     var that = this;
@@ -191,6 +266,19 @@ Page({
       selectflag:index,
     });
   },
+  zkorder:function (e){
+    var that = this;
+    let id=e.target.dataset.id;
+    if(that.data.zkid == id){
+      that.setData({
+        zkid:0
+      });
+    }else{
+      that.setData({
+        zkid:id
+      });
+    }
+  },
   
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -230,7 +318,70 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    
+    var that = this;
+    if(that.data.startime =='' || that.data.endtime == ''){
+        wx.showModal({
+          title: '温馨提示',
+          content: '请选择有效开始及结束时间',
+          showCancel:false,
+          confirmColor:'#7f8ffc',
+          success: function(res) {
+          }
+        })
+        return;
+    }
+    let startData = new Date(that.data.startime).getTime();
+    let endData = new Date(that.data.endtime).getTime();
+    let lefttime = endData - startData;
+    if(lefttime <= -1){
+      wx.showModal({
+        title: '温馨提示',
+        content: '截止时间不能小于开始时间！',
+        showCancel:false,
+        confirmColor:'#7f8ffc',
+        success: function(res) {
+        }
+      })
+      return;
+    }
+    wx.showLoading({
+      title: '加载中'
+    });
+    wx.request({//查询订单信息
+      url: bsurl + '/designer//orderlist.json',
+      method: 'POST',
+      header: {
+          'content-type': 'application/x-www-form-urlencoded',
+          'sessionid':app.globalData.sessionId
+      },
+      data:{
+        starttime:that.data.startime,
+        endtime:that.data.endtime,
+        page:that.data.page
+      },
+      success: function (res) {
+        let evaList = that.data.ordersList;
+        let orderlist = res.data.data.orderlist;
+        console.log(orderlist);
+        if(orderlist.length > 0){
+          let page = that.data.page + 1;
+          for(let item of orderlist){
+            evaList.push(item);
+          }
+          that.setData({
+            ordersList:evaList,
+            page:page
+          });
+          wx.hideLoading();
+        }else{
+          wx.hideLoading();
+          that.setData({
+            hasMore:false
+          });
+        }
+        
+      }
+    });
   },
 
   /**

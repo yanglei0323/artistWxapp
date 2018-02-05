@@ -8,14 +8,53 @@ Page({
    * 页面的初始数据
    */
   data: {
-    qrcodeText:''
+    qrcodeText:'',
+    next:[],
+    nextflag:0,
+    serviceuser:[],
+    serviceflag:0
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that = this;
+    that.getHomeInfo();
     
-    
+  },
+  getHomeInfo:function (){
+    var that = this;
+    wx.showLoading({
+      title: '加载中'
+    });
+    wx.request({//获取首页信息
+      url: bsurl + '/designer/home.json',
+      method: 'POST',
+      header: {
+          'content-type': 'application/x-www-form-urlencoded',
+          'sessionid':app.globalData.sessionId
+      },
+      success: function (res) {
+        // console.log(res);
+        wx.hideLoading();
+        if(res.data.code == 1){
+            that.setData({
+              nextflag:res.data.data.nextflag,
+              next:res.data.data.next,
+              serviceuser:res.data.data.serviceuser,
+              serviceflag:res.data.data.serviceflag
+            });
+        }else if (res.data.code == -1){
+          wx.redirectTo({
+            url: './pages/login/login' 
+          });
+        }
+        
+      },
+      fail:function (res){
+        wx.hideLoading();
+      }
+    });
   },
   qrcodeInput:function (e){
       var that = this;
@@ -27,10 +66,74 @@ Page({
     var that = this;
     wx.scanCode({
       success: (res) => {
-        console.log(res);
+        // console.log(res);
         that.setData({
           qrcodeText:res.result
         });
+      }
+    });
+  },
+  checktick:function(){
+    var that = this;
+    if(that.data.qrcodeText == ''){
+      wx.showToast({
+        title: '验票码为空',
+        icon: 'success',
+        duration: 1000
+      });
+      return;
+    }
+    wx.showLoading({
+      title: '接单中'
+    });
+    wx.request({//获取首页信息
+      url: bsurl + '/designer/checktick.json',
+      method: 'POST',
+      header: {
+          'content-type': 'application/x-www-form-urlencoded',
+          'sessionid':app.globalData.sessionId
+      },
+      data:{
+        code:that.data.qrcodeText
+      },
+      success: function (res) {
+        console.log(res);
+        wx.hideLoading();
+        if(res.data.code == 1){
+            wx.showModal({
+              title: '温馨提示',
+              content: '接单成功！',
+              showCancel:false,
+              confirmColor:'#7f8ffc',
+              success: function(res) {
+              }
+            })
+            that.getHomeInfo();
+            that.setData({
+              qrcodeText:''
+            });
+        }else{
+          wx.showModal({
+            title: '温馨提示',
+            content: res.data.reason,
+            showCancel:false,
+            confirmColor:'#7f8ffc',
+            success: function(res) {
+            }
+          })
+        }
+        
+      },
+      fail:function (res){
+        wx.hideLoading();
+        wx.showModal({
+          title: '温馨提示',
+          content: '网络错误，请稍后重试',
+          showCancel:false,
+          confirmColor:'#7f8ffc',
+          success: function(res) {
+          }
+        })
       }
     });
   },
@@ -83,7 +186,7 @@ Page({
    */
   onShareAppMessage: function () {
     return {
-      title: 'YUE-时尚',
+      title: 'YUE-吹发师',
       desc: '臻选您的美丽',
       path: 'pages/index/index',
       imageUrl: '',

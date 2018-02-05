@@ -17,50 +17,50 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    // that.getcommentlist();
+    that.getcommentlist();
     
   },
-  // getcommentlist: function (){
-  //   wx.showLoading({
-  //     title: '加载中',
-  //     success: function (){
-  //     }
-  //   });
-  //   var that = this;
-  //   wx.request({//获取历史评价
-  //     url: bsurl + '/user/commentlist.json',
-  //     method: 'POST',
-  //     header: {
-  //         'content-type': 'application/x-www-form-urlencoded',
-  //         'sessionid':app.globalData.sessionId
-  //     },
-  //     data:{
-  //       page:that.data.page
-  //     },
-  //     success: function (res) {
-  //       let evaList = that.data.evaList;
-  //       let commentlist = res.data.data.commentlist;
-  //       console.log(commentlist);
-  //       if(commentlist.length > 0){
-  //         let page = that.data.page + 1;
-  //         for(let item of commentlist){
-  //           evaList.push(item);
-  //         }
-  //         that.setData({
-  //           evaList:evaList,
-  //           page:page
-  //         });
-  //         wx.hideLoading();
-  //       }else{
-  //         wx.hideLoading();
-  //         that.setData({
-  //           hasMore:false
-  //         });
-  //       }
+  getcommentlist: function (){
+    wx.showLoading({
+      title: '加载中',
+      success: function (){
+      }
+    });
+    var that = this;
+    wx.request({//获取历史评价
+      url: bsurl + '/designer/commentlist.json',
+      method: 'POST',
+      header: {
+          'content-type': 'application/x-www-form-urlencoded',
+          'sessionid':app.globalData.sessionId
+      },
+      data:{
+        page:that.data.page
+      },
+      success: function (res) {
+        let evaList = that.data.evaList;
+        let commentlist = res.data.data.commentlist;
+        console.log(commentlist);
+        if(commentlist.length > 0){
+          let page = that.data.page + 1;
+          for(let item of commentlist){
+            evaList.push(item);
+          }
+          that.setData({
+            evaList:evaList,
+            page:page
+          });
+          wx.hideLoading();
+        }else{
+          wx.hideLoading();
+          that.setData({
+            hasMore:false
+          });
+        }
         
-  //     }
-  //   });
-  // },
+      }
+    });
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -104,7 +104,7 @@ Page({
    */
   onReachBottom: function () {
     var that = this;
-    // that.getcommentlist();
+    that.getcommentlist();
   },
 
   /**

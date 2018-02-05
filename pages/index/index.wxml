@@ -1,24 +1,32 @@
 <!--pages/index/index.wxml-->
 <view class="container">
-    <view class="bg-fff mt-20 next-service">
+    <view class="bg-fff mt-20 next-service" wx:if="{{nextflag == 1}}">
     	<text class="next-title ft-24 color-999">下一位</text>
-    	<view class="next-num color-333 strong">A456</view>
-    	<view class="next-serItem ft-24 color-333">服务项目：YUE吹发服务头皮护理</view>
+    	<view class="next-num color-333 strong">{{next.number}}</view>
+    	<view class="next-serItem ft-24 color-333">服务项目：{{next.servicename}}</view>
+    </view>
+    <view class="bg-fff mt-20 next-service" wx:if="{{nextflag == 0}}">
+        <text class="next-title ft-24 color-999">下一位</text>
+        <view class="next-num color-333 strong">暂无</view>
     </view>
     <view class="bg-fff mt-20 qrcode-box">
     	<text class="next-title ft-24 color-999">验票</text>
     	<image src="../../assets/icons/qrcode.png" class="qr-icon" bindtap="sendcode"></image>
     	<input placeholder="请输入验票码" type="text" placeholder-class="placeholder" bindinput ="qrcodeInput" class="qrcode-input" value="{{qrcodeText}}"/>
-    	<view class="btn bg-light color-fff submit-qrcode">确认</view>
+    	<view class="btn bg-light color-fff submit-qrcode" bindtap="checktick">确认</view>
     </view>
-    <view class="bg-fff mt-20 servicing-box">
+    <view class="bg-fff mt-20 servicing-box" wx:if="{{serviceflag == 1}}">
     	<text class="next-title ft-24 light">正在服务...</text>
-    	<image src="../../assets/images/bg.png" class="user-img"></image>
+    	<image src="{{serviceuser.imgurl}}" class="user-img"></image>
     	<view class="servicing-msg">
-    		<view class="ft-24 color-333">客户昵称</view>
-    		<view class="ft-24 color-333 servicing-text">服务项目：YUE洗发造型</view>
-    		<view class="ft-24 color-333 servicing-text">服务时间：2017.12.10 10:00-10:30</view>
+    		<view class="ft-24 color-333">{{serviceuser.name}}</view>
+    		<view class="ft-24 color-333 servicing-text">服务项目：{{serviceuser.servicename}}</view>
+    		<view class="ft-24 color-333 servicing-text">服务时间：{{serviceuser.servicetime}}</view>
     	</view>
     	<view class="btn invite light">服务完成,邀请评价</view>
+    </view>
+    <view class="bg-fff mt-20 next-service" wx:if="{{serviceflag == 0}}">
+        <text class="next-title ft-24 light">正在服务...</text>
+        <view class="next-num color-333 strong">暂无</view>
     </view>
 </view>

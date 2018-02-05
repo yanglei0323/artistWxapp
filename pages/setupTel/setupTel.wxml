@@ -2,7 +2,7 @@
 <view class="container">
 	<view class="header">
         <text class="nickname strong">修改密码</text>
-        <text class="about">密码要求6位字母以及数字结合</text>
+        <text class="about">密码要求6-18位字母+数字组成</text>
     </view>
     <view class="ec-10"></view>
     <view class="cell-box borderTop-1">
@@ -15,6 +15,11 @@
             <input placeholder="请输入验证码" maxlength="6" type="number" placeholder-class="placeholder" bindinput ="codeInput"/>
             <view class="code" wx:if="{{!sending}}" bindtap="getCode">获取验证码</view>
             <view class="code sending-code" wx:if="{{sending}}">{{sendCodeText}}</view>
+        </view>
+    </view>
+    <view class="cell-box">
+        <view class="cell-manage">
+            <input placeholder="请输入您新密码" maxlength="18"  password="true" placeholder-class="placeholder" bindinput ="pWdInput" />
         </view>
     </view>
     <view class="submit-btn" bindtap="updateTel">{{btnText}}</view>

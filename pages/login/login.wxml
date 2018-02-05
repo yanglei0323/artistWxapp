@@ -1,0 +1,12 @@
+<!--pages/login/login.wxml-->
+<view class="container">
+	<view class="login-box">
+        <image src="../../assets/images/bg.jpg" class="bg-img"></image>
+        <view class="input-manage">
+            <input placeholder="请输入您的手机号" maxlength="11" type="number" placeholder-class="placeholder" bindinput ="phoneInput" focus="true"/>
+            <input placeholder="请输入密码" maxlength="18" password="true" placeholder-class="placeholder" bindinput ="pWdInput"/>
+            <text class="forgetPwd" bindtap="forgetPwd">忘记密码</text>
+        </view>
+        <view class="confirm" bindtap="confirm">确定</view>
+    </view>
+</view>
