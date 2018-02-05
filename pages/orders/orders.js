@@ -90,7 +90,7 @@ Page({
         let evaList = that.data.ordersList;
         let orderlist = res.data.data.orderlist;
         console.log(orderlist); 
-        if(orderlist.length > 0){
+        if(orderlist.length >= 1){
           let page = that.data.page + 1;
           for(let item of orderlist){
             evaList.push(item);
@@ -102,9 +102,15 @@ Page({
           wx.hideLoading();
         }else{
           wx.hideLoading();
-          that.setData({
-            hasMore:false
-          });
+          if(evaList.length == 0){
+              that.setData({
+                hasMore:true
+              });
+          }else{
+            that.setData({
+              hasMore:false
+            });
+          }
         }
         
       }
@@ -375,9 +381,15 @@ Page({
           wx.hideLoading();
         }else{
           wx.hideLoading();
-          that.setData({
-            hasMore:false
-          });
+          if(evaList.length == 0){
+              that.setData({
+                hasMore:true
+              });
+          }else{
+            that.setData({
+              hasMore:false
+            });
+          }
         }
         
       }

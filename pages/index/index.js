@@ -35,7 +35,6 @@ Page({
           'sessionid':app.globalData.sessionId
       },
       success: function (res) {
-        // console.log(res);
         wx.hideLoading();
         if(res.data.code == 1){
             that.setData({
@@ -44,15 +43,18 @@ Page({
               serviceuser:res.data.data.serviceuser,
               serviceflag:res.data.data.serviceflag
             });
-        }else if (res.data.code == -1){
+        }else{
           wx.redirectTo({
-            url: './pages/login/login' 
+            url: '../login/login' 
           });
         }
         
       },
       fail:function (res){
         wx.hideLoading();
+        wx.redirectTo({
+          url: '../login/login' 
+        });
       }
     });
   },

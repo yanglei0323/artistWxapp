@@ -47,8 +47,8 @@
 	    			<image src="../../assets/icons/up-white.png" class="zk-icon" wx:if="{{zkid == item.id}}" data-id="{{item.id}}" bindtap="zkorder"></image>
 	    		</view>
 	    		<view class="userinfo-box">
-	    			<image src="../../assets/images/bg.jpg"></image>
-	    			<text class="user-name">客户昵称</text>
+	    			<image src="{{item.user.avatar}}"></image>
+	    			<text class="user-name">{{item.user.name}}</text>
 	    			<text class="pay-time">支付时间：{{item.time}}</text>
 	    			<text class="store-text">{{item.store.name}}</text>
 	    		</view>
