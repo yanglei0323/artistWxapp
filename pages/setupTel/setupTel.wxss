@@ -47,5 +47,12 @@
 	font-size:28rpx;
 	line-height:88rpx;
 	text-align:center;
-	margin:148rpx auto 0;
+	margin:108rpx auto 0;
+}
+.psMsg{
+	font-size:24rpx;
+	color:#999;
+}
+.makecall{
+	color:#7f8ffc;
 }

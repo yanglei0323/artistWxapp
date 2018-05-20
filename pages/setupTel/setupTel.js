@@ -17,13 +17,19 @@ Page({
     codeNum:'',
     currentTime:61,
     passWord:'',
-    type:2 //type=1绑定手机号，type=2修改手机号
+    type:2 //type=1修改密码，type=2忘记密码
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     var that = this;
+    if(app.globalData.userInfo){
+      that.setData({
+        phoneNum:app.globalData.userInfo.telephone,
+        type:1
+      });
+    }
   },
   phoneInput:function (e){
       var that = this;
@@ -42,6 +48,22 @@ Page({
       that.setData({
         passWord: e.detail.value
       })
+  },
+  makecall: function (){
+    wx.showActionSheet({
+      itemList: ['010-85611588', '呼叫'],
+      itemColor:'#333',
+      success: function(res) {
+        if(res.tapIndex == 1){
+            wx.makePhoneCall({
+              phoneNumber: '01085611588' 
+            })
+        }
+      },
+      fail: function(res) {
+        // console.log(res.errMsg)
+      }
+    })
   },
   getCode: function (){//获取验证码
     var that = this;

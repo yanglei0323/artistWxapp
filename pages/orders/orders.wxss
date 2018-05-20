@@ -419,8 +419,8 @@
 }
 .store-text{
     position:absolute;
-    right:70rpx;
-    bottom:30rpx;
+    right:66rpx;
+    top:30rpx;
 }
 .price{
     background:#fff;

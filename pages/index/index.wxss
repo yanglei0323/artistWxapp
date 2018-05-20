@@ -50,19 +50,21 @@
 	height:88rpx;
 	border-radius:5rpx;
 	font-size:28rpx;
-	line-height:88rpx;
+	line-height:86rpx;
 	text-align:center;
+	box-sizing:border-box;
 }
 .qrcode-input{
 	width:360rpx;
 	height:88rpx;
 	border-radius:5rpx;
 	font-size:24rpx;
-	line-height:88rpx;
+	line-height:86rpx;
 	text-align:center;
 	color:#333;
 	border:1rpx solid #999;
 	margin:46rpx auto 36rpx;
+	box-sizing: border-box;
 }
 .placeholder{
 	color:#999;
