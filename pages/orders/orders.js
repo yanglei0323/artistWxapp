@@ -38,6 +38,51 @@ Page({
       cur_month,
       weeks_ch
     });
+    wx.showLoading({
+      title: '加载中'
+    });
+
+    wx.request({//查询订单信息
+      url: bsurl + '/designer//orderlist.json',
+      method: 'POST',
+      header: {
+          'content-type': 'application/x-www-form-urlencoded',
+          'sessionid':app.globalData.sessionId
+      },
+      data:{
+        starttime:that.data.startime,
+        endtime:that.data.endtime,
+        page:that.data.page
+      },
+      success: function (res) {
+        let evaList = that.data.ordersList;
+        let orderlist = res.data.data.orderlist;
+        console.log(orderlist); 
+        if(orderlist.length >= 1){
+          let page = that.data.page + 1;
+          for(let item of orderlist){
+            evaList.push(item);
+          }
+          that.setData({
+            ordersList:evaList,
+            page:page
+          });
+          wx.hideLoading();
+        }else{
+          wx.hideLoading();
+          if(evaList.length == 0){
+              that.setData({
+                hasMore:true
+              });
+          }else{
+            that.setData({
+              hasMore:false
+            });
+          }
+        }
+        
+      }
+    });
   },
   getcommentlist: function (){
     var that = this;
@@ -354,7 +399,7 @@ Page({
       title: '加载中'
     });
     wx.request({//查询订单信息
-      url: bsurl + '/designer//orderlist.json',
+      url: bsurl + '/designer/orderlist.json',
       method: 'POST',
       header: {
           'content-type': 'application/x-www-form-urlencoded',

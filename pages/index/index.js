@@ -35,6 +35,7 @@ Page({
           'sessionid':app.globalData.sessionId
       },
       success: function (res) {
+        console.log(res);
         wx.hideLoading();
         if(res.data.code == 1){
             that.setData({
@@ -71,6 +72,57 @@ Page({
         // console.log(res);
         that.setData({
           qrcodeText:res.result
+        });
+      }
+    });
+  },
+  confirmOrder:function (e){
+    let formId=e.detail.formId;
+    let orderid=e.currentTarget.dataset.orderid;
+    console.log(formId);
+    console.log(orderid);
+    var that = this;
+    wx.showLoading({
+      title: '提交中'
+    });
+    wx.request({//获取首页信息
+      url: bsurl + '/designer/unl/wzinfo.json',
+      data:{
+        orderid:orderid,
+        formid:formId
+      },
+      method: 'POST',
+      header: {
+          'content-type': 'application/x-www-form-urlencoded',
+          'sessionid':app.globalData.sessionId
+      },
+      success: function (res) {
+        console.log(res);
+        wx.hideLoading();
+        if(res.data.code == 1){
+          wx.showToast({
+            title: '邀请成功',
+            icon: 'none',
+            duration: 1000
+          });
+          that.getHomeInfo();
+        }else{
+          wx.showToast({
+            title: '确认订单失败',
+            icon: 'none',
+            duration: 1000
+          });
+
+        }
+
+        
+      },
+      fail:function (res){
+        wx.hideLoading();
+        wx.showToast({
+          title: '确认订单失败',
+          icon: 'none',
+          duration: 1000
         });
       }
     });

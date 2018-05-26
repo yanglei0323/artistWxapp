@@ -99,6 +99,10 @@
 	margin-top:20rpx;
 }
 .invite{
-	border:1rpx solid #7f8ffc;
 	margin:56rpx auto 0;
+}
+.order-end{
+	margin:0;
+	background:#fff;
+	border:1rpx solid #7f8ffc;
 }

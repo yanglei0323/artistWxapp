@@ -53,9 +53,12 @@ Page({
           wx.hideLoading();
         }else{
           wx.hideLoading();
-          that.setData({
-            hasMore:false
-          });
+          if(that.data.evaList.length <= 0){
+            that.setData({
+              hasMore:false
+            });
+
+          }
         }
         
       }

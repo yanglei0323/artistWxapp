@@ -23,7 +23,10 @@
     		<view class="ft-24 color-333 servicing-text">服务项目：{{serviceuser.servicename}}</view>
     		<view class="ft-24 color-333 servicing-text">服务时间：{{serviceuser.servicetime}}</view>
     	</view>
-    	<view class="btn invite light">服务完成,邀请评价</view>
+    	<!-- <view class="btn invite light" bindtap="confirmOrder">服务完成,邀请评价</view> -->
+        <form class='btn invite light' report-submit='true' bindsubmit='confirmOrder' data-orderid="{{serviceuser.orderid}}">
+            <button class='btn invite light order-end' form-type='submit'>服务完成,邀请评价</button>
+        </form>
     </view>
     <view class="bg-fff mt-20 next-service" wx:if="{{serviceflag == 0}}">
         <text class="next-title ft-24 light">正在服务...</text>
