@@ -5,7 +5,8 @@
     "pages/my/my",
     "pages/evaluateMy/evaluateMy",
     "pages/setupTel/setupTel",
-    "pages/login/login"
+    "pages/login/login",
+    "pages/aboutUs/aboutUs"
   ],
   "window": {
     "navigationBarTitleText": "YUE时尚-吹发师",

@@ -42,6 +42,12 @@
     color: #333;
     font-size: 24rpx;
 }
+
+.pink-bg-light{
+    /*background-color: #f6838d;*/
+    color: #f6838d;
+    font-weight:bold;
+}
 .border-radius {
     border-radius: 50%;
     position: relative;

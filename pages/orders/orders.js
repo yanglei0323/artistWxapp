@@ -30,14 +30,18 @@ Page({
     const date = new Date();
     const cur_year = date.getFullYear();
     const cur_month = date.getMonth() + 1;
+    const rel_day = date.getDate();
     const weeks_ch = [ '周日', '周一', '周二', '周三', '周四', '周五', '周六' ];
-    that.calculateEmptyGrids(cur_year, cur_month);
-    that.calculateDays(cur_year, cur_month);
     that.setData({
       cur_year,
       cur_month,
-      weeks_ch
+      weeks_ch,
+      rel_year:cur_year,
+      rel_month:cur_month,
+      rel_day:rel_day
     });
+    that.calculateEmptyGrids(cur_year, cur_month);
+    that.calculateDays(cur_year, cur_month);
     wx.showLoading({
       title: '加载中'
     });
@@ -81,6 +85,9 @@ Page({
           }
         }
         
+      },
+      fail:function(res){
+        console.log(res);
       }
     });
   },
@@ -190,12 +197,31 @@ Page({
     let days = [];
     var that = this;
     const thisMonthDays = that.getThisMonthDays(year, month);
-
+    // console.log(year);
+    // console.log(month);
     for (let i = 1; i <= thisMonthDays; i++) {
-      days.push({
-        day: i,
-        choosed: false
-      });
+      if(year == that.data.rel_year && month == that.data.rel_month){
+        if(i == that.data.rel_day){
+          days.push({
+            day: i,
+            choosed: false,
+            curTime:true
+          });
+        }else{
+          days.push({
+            day: i,
+            choosed: false,
+            curTime:false
+          });
+        }
+      }else{
+        days.push({
+          day: i,
+          choosed: false,
+          curTime:false
+        });
+      }
+      
     }
 
     that.setData({
